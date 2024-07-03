@@ -10,18 +10,20 @@ if(isset($_POST['send'])) {
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $message = $_POST['message'];
+    $date = date("Y/M/D") ;
     global $conn;
     try {
         if ($first_name == '' or $last_name == '' or $phone == '' or $email == '' or $message == '') {
             header('location: ../index.php?empty=ok');
         } else {
-            $query = "INSERT INTO users SET first_name=?, last_name=?, phone_number=?, email=?, message=?";
+            $query = "INSERT INTO users SET first_name=?, last_name=?, phone_number=?, email=?, message=?, send-at=?";
             $stmt = $conn->prepare($query);
             $stmt->bindValue(1, $first_name);
             $stmt->bindValue(2, $last_name);
             $stmt->bindValue(3, $phone);
             $stmt->bindValue(4, $email);
             $stmt->bindValue(5, $message);
+            $stmt->bindValue(6, $date);
             $stmt->execute();
 
             $mail = new PHPMailer;

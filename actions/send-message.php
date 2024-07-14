@@ -1,8 +1,6 @@
 <?php
 
 require_once ('../database/database.php');
-use PHPMailer\PHPMailer\PHPMailer;
-require_once ("../vendor/autoload.php");
 
 if(isset($_POST['send'])) {
     $first_name = $_POST['first-name'];

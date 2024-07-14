@@ -58,8 +58,10 @@
             <br>
             <?php if(isset($_GET['empty'])){ ?>
                 <p style="width=100% ;"  class="alert alert-danger">Please fill in all fields.</p>
-            <?php } if (isset($_GET['sent'])){ ?>
+            <?php } if (isset($_GET['send'])){ ?>
                 <p style="width:100%" class="alert alert-success">Information sent successfully</p>
+            <?php } if (isset($_GET['error'])){ ?>
+                <p style="width:100%" class="alert alert-danger">server error</p>
             <?php } ?>
         </div>
     </div>

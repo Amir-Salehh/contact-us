@@ -19,40 +19,27 @@ if(isset($_POST['send'])) {
             $query = "INSERT INTO users SET first_name=?, last_name=?, phone_number=?, email=?, message=?, send-at=?";
             $stmt = $conn->prepare($query);
             $stmt->bindValue(1, $first_name);
-            $stmt->bindValue(2, $last_name);
+            $stmt->bindValue(2, $first_name);
             $stmt->bindValue(3, $phone);
             $stmt->bindValue(4, $email);
             $stmt->bindValue(5, $message);
             $stmt->bindValue(6, $date);
             $stmt->execute();
 
-            $mail = new PHPMailer;
-
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = "Your email";
-            $mail->Password = "Your email password";
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
-            $mail->setFrom("Your email", 'Your name');
-                //  To save that person's information, it must be sent to your email address.
-            $mail->addAddress("Your email");
-
-            $mail->isHTML(true);
-
-            $mail->Subject =  "$first_name $last_name information";
-            $mail->Body    = "<b>name: $first_name $last_name\n\nphone number: $phone\n\nemail: $email\n\nmessage: $message</b>";
-
-            try {
-                $mail->send();
-                header("location: ../index.php?sent=ok");
-
-            } catch (\PHPMailer\PHPMailer\Exception $e) {
-                echo 'Mailer Error: ' . $e->getMessage();
-            }
-
+            $to = "Yoyr email";
+            $subject = "Somebody wants to contact you";
+            $message = "Name : $first_name $first_name\n";
+            $message .= "Phone number = $phone";
+            $message .= "Email = $email";
+            $message .= "Message = $message";
+            $message .= "Sent at = $date";
+            $res = mail($to, $subject, $message);
+            if ($res) {
+            header("location: ../index.php?send=true");
+        }
+        else{
+            header("location: ../index.php?error=ok");
+        }
         }
     } catch (PDOException $error) {
         echo "errors: " . $error->getMessage();
